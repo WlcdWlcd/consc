@@ -1,12 +1,15 @@
 
 #[cfg(test)]
 pub mod lib_tests{
+
     use crate::Bar;
+    use crate::bar_config::ChangeBarConfig;
 
     
     #[test]
     fn test_generate_out_len_100(){
-            let bar = Bar::new(100);
+            let mut bar = Bar::default();
+            bar.set_lengh(100);
             let one_per_bar =  "[|                                                                                                   ]";
             let zero_per_bar = "[                                                                                                    ]";
 
@@ -33,7 +36,8 @@ pub mod lib_tests{
 
     #[test]
     fn test_generate_out_len_0(){
-        let bar = Bar::new(0);
+        let mut bar = Bar::default();
+        bar.set_lengh(0);
 
         assert_eq!("[]",bar.bar(1.0));
         assert_eq!("[]",bar.bar(5.0));
@@ -43,7 +47,8 @@ pub mod lib_tests{
     }
     #[test]
     fn test_generate_out_len_50(){
-        let bar = Bar::new(50);
+        let mut bar = Bar::default();
+        bar.set_lengh(50);
         let from_one_to_two_bar = "[                                                  ]";
         let from_two_to_four_bar = "[|                                                 ]";
         let full_bar = "[||||||||||||||||||||||||||||||||||||||||||||||||||]";
@@ -68,7 +73,9 @@ pub mod lib_tests{
     }
     #[test]
     fn test_generate_out_len_10(){
-        let bar = Bar::new(10);
+        let mut bar = Bar::default();
+        bar.set_lengh(10);
+
         assert_eq!("[          ]",bar.bar(0.0));
         assert_eq!("[          ]",bar.bar(1.0));
         assert_eq!("[          ]",bar.bar(2.0));
@@ -94,7 +101,9 @@ pub mod lib_tests{
 
     #[test]
     fn test_generate_out_len_200(){
-        let bar = Bar::new(200);
+        let mut bar = Bar::default();
+        bar.set_lengh(200);
+
         let n0to0dot5 = "[                                                                                                                                                                                                        ]";
         let n0dot5to1 = "[|                                                                                                                                                                                                       ]";
         let mut t:f32=0.0;
@@ -113,13 +122,13 @@ pub mod lib_tests{
     #[test]
     #[should_panic]
     fn test_generate_out_will_panic_negative(){
-        let bar = Bar::new(10);
+        let bar = Bar::default();
         bar.bar(-1.0);    
     }
     #[test]
     #[should_panic]
     fn test_generate_out_will_panic_larger_than_100(){
-        let bar = Bar::new(10);
+        let bar = Bar::default();
         bar.bar(100.1);    
     }
 }
